@@ -29,26 +29,38 @@
 //}
 
 jQuery(document).ready(function($) {
-console.log("inside");
-// stage
-//    var start_field_name = 'fields[field_59644a2aca53f]';
-//    var end_field_name = 'fields\\[field_59644bbeca540\\]';
-//local1
-    var start_field_name = 'fields[field_59717cbdb7ad5]';
-    var end_field_name = 'fields[field_59717cd8b7ad6]';
-    console.log("length div="+jQuery('div').length);
-//    console.log("length="+$("input").length);
-    console.log("lengthTitle="+jQuery("input[name='"+start_field_name+"']").length);
-    $("input[name='"+start_field_name+"']").each(function(){
-      console.log("added");
-		  $(this).on('input change select',function(e){
-		    var date = $(this).datepicker('getDate');
-		    console.log(date);
-		    date.setHours(date.getHours()+1);
-		    $("input[name='"+end_field_name+"']").each(function(){
-		      console.log("updating end");
-		      $(this).datetimepicker('setDate',date);
-		    });
-		  });
+    var start_slug = "start_date";
+    var end_slug = "end_date";
+
+	  RegExp.escape = function(text) {
+      if (!arguments.callee.sRE) {
+        var specials = [ 
+          '/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\' 
+        ];
+        arguments.callee.sRE = new RegExp(
+          '(\\' + specials.join('|\\') + ')', 'g'
+        );
+      }
+      return text.replace(arguments.callee.sRE, '\\$1');
+    }    
+//    $("input[name='"+start_field_name+"']").each(function(){
+//    console.log("feld div len="+$("div[data-field_name='"+RegExp.escape(start_slug)+"'] input").length);
+    $("div[data-field_name='"+RegExp.escape(start_slug)+"'] input").first().each(function(){
+//      console.log("added");
+	    $(this).after('<input type="checkbox" checked id="link_'+start_slug+'"/>Link '+start_slug+' and '+end_slug+' changes.').on('input change select',function(e){
+	      link_box_id = '#link_'+RegExp.escape(start_slug); //.replace(/#$%&'()*+,./:;<=>?@[\]^``{|}~/g,"\\$&");
+//		    console.log("num checkbox="+$(link_box_id).length+$(link_box_id).is(':checked'));
+	      if( $(link_box_id).is(':checked') ){
+	        var date = $(this).datepicker('getDate');
+//		      console.log(date);
+	        date.setHours(date.getHours()+1);
+	        //date.setTime(date.getTime()+1000*60*60);
+//		      $("input[name='"+end_field_name+"']").each(function(){
+	        $("div[data-field_name='"+RegExp.escape(end_slug)+"'] input").first().each(function(){
+//		        console.log("updating end");
+	          $(this).datetimepicker('setDate',date);
+	        });
+	      }
+	    });
     });
 });	
