@@ -12,12 +12,25 @@ namespace afgd5\dp;
 defined( 'ABSPATH' ) or die( 'No direct access please!' );
 
 
-#if( ! function_exists( __NAMESPACE__.'\include_script' ) ){
-add_action( 'admin_enqueue_scripts',__NAMESPACE__.'\include_script');
-  function include_script( ) {
+if( ! function_exists( __NAMESPACE__.'\include_script' ) ){
+  /**
+  * Hook acf/input/admin_enqueue_scripts is where acf plugin enqueues its scripts.
+  * Enqueuing with this hook fixed an error triggered by loading datetime.js where it 
+  * did not need to be.  This would load the dependency acf-input, which would throw 
+  * an exception when loaded on a page that it shouldn't.
+  */
+  add_action('acf/input/admin_enqueue_scripts', __NAMESPACE__.'\include_script', PHP_INT_MAX);
+  function include_script( $hook_suffix ) {
     wp_enqueue_script('afgd5dp', plugin_dir_url(__FILE__).'datetime.js', array('acf-input','jquery'),time());
   }
+}
+#add_action( 'admin_enqueue_scripts',__NAMESPACE__.'\include_script');
+#function include_script( $hook_suffix ) {
+#  if( $hook_suffix == 'post.php' || $hook_suffix == 'post-new.php' ){ 
+#    wp_enqueue_script('afgd5dp', plugin_dir_url(__FILE__).'datetime.js', array('acf-input','jquery'),time());
+#  }
 #}
+
 
 /**
 * Get site url for links
