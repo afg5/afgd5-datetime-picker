@@ -51,7 +51,7 @@ jQuery(document).ready(function($) {
 	      link_box_id = '#link_'+RegExp.escape(start_slug); //.replace(/#$%&'()*+,./:;<=>?@[\]^``{|}~/g,"\\$&");
 //		    console.log("num checkbox="+$(link_box_id).length+$(link_box_id).is(':checked'));
 	      if( $(link_box_id).is(':checked') ){
-	        var date = $(this).datepicker('getDate');
+	        var date = $(this).datetimepicker('getDate');
 //		      console.log(date);
 	        date.setHours(date.getHours()+1);
 	        //date.setTime(date.getTime()+1000*60*60);
