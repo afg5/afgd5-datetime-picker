@@ -3,11 +3,11 @@
 Plugin Name: AFG D5 Datetime Picker
 Description: This is intended to add jQuery code to update the "end_date" custom field to be one hour after the "start_date" custom field.
 Version:     0.0.1
-Author:      BET <bet6556@gmail.com>
+Author:      Bryan T <bet6556@gmail.com>
 License:     GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
-namespace afgd5\dp;
+namespace afgd5\dpick;
 
 defined( 'ABSPATH' ) or die( 'No direct access please!' );
 
