@@ -47,7 +47,7 @@ jQuery(document).ready(function($) {
         
 //    $("input[name='"+start_field_name+"']").each(function(){
 //    console.log("feld div len="+$("div[data-field_name='"+RegExp.escape(start_slug)+"'] input").length);
-    $("div[data-field_name='"+RegExp.escape(start_slug)+"'] input").first().each(function(){
+    $("div[data-name='"+RegExp.escape(start_slug)+"'] input").first().each(function(){
 //      console.log("added");
       $(this).after('<input type="checkbox" checked id="link_'+start_slug+'"/>Link '+start_slug+' and '+end_slug+' changes.').on('input change select',function(e){
         link_box_id = '#link_'+RegExp.escape(start_slug); //.replace(/#$%&'()*+,./:;<=>?@[\]^``{|}~/g,"\\$&");
@@ -58,7 +58,7 @@ jQuery(document).ready(function($) {
           date.setHours(date.getHours()+1);
           //date.setTime(date.getTime()+1000*60*60);
 //          $("input[name='"+end_field_name+"']").each(function(){
-          $("div[data-field_name='"+RegExp.escape(end_slug)+"'] input").first().each(function(){
+          $("div[data-name='"+RegExp.escape(end_slug)+"'] input").first().each(function(){
 //            console.log("updating end");
             $(this).datetimepicker('setDate',date);
           });
